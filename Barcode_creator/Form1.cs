@@ -97,17 +97,47 @@ namespace Barcode_creator
 
         private void button1_Click(object sender, EventArgs e)
         {
+            try
+            {
+                saveFileDialog1.FileName = "img.png";
 
+                DialogResult dialog = saveFileDialog1.ShowDialog();
+
+                if (dialog == DialogResult.OK)
+                {
+                    pictureBox1.Image.Save(saveFileDialog1.FileName);
+                }
+            }
+            catch (Exception ex) { }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            try
+            {
+                MessageBox.Show(DecodeImage(pictureBox1.Image));
+            }
+            catch (Exception ex)
+            {
 
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            try
+            {
+                DialogResult dialog = openFileDialog1.ShowDialog();
 
+                if (dialog == DialogResult.OK)
+                    pictureBox1.Image = Image.FromFile(openFileDialog1.FileName);
+            }
+            catch (Exception ex) { }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            pictureBox1.Image = CreateCode(textBox1.Text, pictureBox1.Width, pictureBox1.Height, GetFormat());
         }
     }
 }
